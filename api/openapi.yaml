@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Phone Management API
+  description: API for managing phones in a MySQL database using Sequelize ORM
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+paths:
+  /api/phones:
+    get:
+      summary: Get all phones
+      description: Get all phones in the database
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Phone'
+
+    post:
+      summary: Create a phone
+      description: Create a phone in the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneInput'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phone'
+        "409":
+          description: Phone already exists
+          content:
+            application/json:
+              example:
+                message: Phone already exists
+
+  /api/phones/{phone_id}:
+    get:
+      summary: Get phone by ID
+      description: Get phone by ID
+      parameters:
+        - in: path
+          name: phone_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the phone
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phone'
+        "404":
+          description: Phone not found
+          content:
+            application/json:
+              example:
+                message: Phone not found
+
+    put:
+      summary: Update phone by ID
+      description: Update phone by ID
+      parameters:
+        - in: path
+          name: phone_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the phone
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneInput'
+      responses:
+        "200":
+          description: Phone updated successfully
+          content:
+            application/json:
+              example:
+                message: Phone updated successfully
+        "404":
+          description: Phone not found
+          content:
+            application/json:
+              example:
+                message: Phone not found
+
+    delete:
+      summary: Delete phone by ID
+      description: Delete phone by ID
+      parameters:
+        - in: path
+          name: phone_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the phone
+      responses:
+        "200":
+          description: Phone deleted successfully
+          content:
+            application/json:
+              example:
+                message: Phone deleted successfully
+        "404":
+          description: Phone not found
+          content:
+            application/json:
+              example:
+                message: Phone not found
+
+  /api/phones/emei/{emei}:
+    get:
+      summary: Get phone by EMEI
+      description: Get phone by EMEI
+      parameters:
+        - in: path
+          name: emei
+          schema:
+            type: string
+          required: true
+          description: EMEI of the phone
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phone'
+        "404":
+          description: Phone not found
+          content:
+            application/json:
+              example:
+                message: Phone not found
+
+components:
+  schemas:
+    Phone:
+      type: object
+      properties:
+        id:
+          type: integer
+        brand:
+          type: string
+        model:
+          type: string
+        emei:
+          type: string
+
+    PhoneInput:
+      type: object
+      properties:
+        brand:
+          type: string
+        model:
+          type: string
+        emei:
+          type: string
+      required:
+        - brand
+        - model
+        - emei

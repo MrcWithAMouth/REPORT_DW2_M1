@@ -1,0 +1,5 @@
+# Use uma imagem base do MySQL
+FROM mysql:latest
+COPY ./database/mysql-init.sql /docker-entrypoint-initdb.d/mysql-init.sql
+ENV MYSQL_ROOT_PASSWORD=12345678
+EXPOSE 3306
