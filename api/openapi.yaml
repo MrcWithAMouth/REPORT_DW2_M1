@@ -4,9 +4,9 @@ info:
   title: Phone Management API
   description: API for managing phones, users, accessories, and companies
   version: 1.0.0
-  termsOfService: https://github.com/INF23DW1G25/REPORT_DW1_M2
+  termsOfService: https://github.com/INF23DW2G23/REPORT_DW2_M1
   contact:
-    name: M2 - G23
+    name: M1 - G23
     email: random_email@umaia.pt
   license:
     name: Apache 2.0
