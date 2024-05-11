@@ -1,49 +1,67 @@
-// dotenv
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
-const yamljs = require("yamljs");
+const fs = require("fs");
+const yaml = require("yaml");
 const sequelize = require("./config/database");
+const associations = require("./models/associations");
+const authenticateJWT = require('./middlewares/authenticateJWT');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware para analisar corpos de solicitação JSON
 app.use(bodyParser.json());
 
-// Sequelize connection
 const connectToDatabase = async () => {
     try {
         await sequelize.authenticate();
         console.log("Connection has been established successfully.");
+
     } catch (error) {
         console.error("Unable to connect to the database: ", error);
     }
 };
+
 connectToDatabase().then(() => {
-    // Sync: It is used to create the table in the database. It will create the table only if it does not exist.
-    // if any changes are made to the model, it will update the table.
+    associations();
     sequelize.sync().then(() => {
         console.log("Database & tables created!");
     });
 });
 
-// Documentação da API
-const swaggerDocument = yamljs.load("./api/openapi.yaml");
+const openapiSpec = fs.readFileSync("./api/openapi.yaml", "utf8");
+const openapiJson = yaml.parse(openapiSpec);
 
-// Rota para a documentação
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiJson));
 
-// Rota para as APIs do telefone
-app.use("/api", require("./routes/PhoneRouter"));
 
-// Redireciona para a documentação ao acessar a raiz
+const authService = require('./services/AuthService');
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const token = await authService.authenticate(email, password);
+        res.json({ token });
+    } catch (err) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+});
+
+app.use(authenticateJWT);
+
+// Rotas protegidas
+app.use("/", require("./routes/PhoneRouter"));
+app.use("/", require("./routes/UserRouter"));
+app.use("/", require("./routes/CompanyRouter"));
+app.use("/", require("./routes/AccessoriesRouter"));
+
+
 app.get("/", (req, res) => {
     res.redirect("/docs");
 });
 
-// Inicia o servidor
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

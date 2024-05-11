@@ -1,4 +1,3 @@
-# Use uma imagem base do Node.js
 FROM node:17
 WORKDIR /app
 

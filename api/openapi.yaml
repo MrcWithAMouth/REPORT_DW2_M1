@@ -1,179 +1,588 @@
 openapi: 3.0.0
+
 info:
   title: Phone Management API
-  description: API for managing phones in a MySQL database using Sequelize ORM
+  description: API for managing phones, users, accessories, and companies
   version: 1.0.0
+  termsOfService: https://github.com/INF23DW1G25/REPORT_DW1_M2
+  contact:
+    name: M2 - G23
+    email: random_email@umaia.pt
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
 
 servers:
   - url: http://localhost:3000
-    description: Local server
+    description: My localhost
+    variables:
+      basePath:
+        default: /
 
 paths:
-  /api/phones:
+  /login:
+      post:
+        operationId: loginUser
+        tags:
+          - Authentication 
+        requestBody:
+          description: User's login credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - email
+                  - password
+                properties:
+                  email:
+                    type: string
+                  password:
+                    type: string
+          required: true
+        responses:
+          '200':
+            description: Login successful
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    token:
+                      type: string
+                      description: JWT for the logged in user
+          '401':
+            description: Login failed
+  /user:
     get:
-      summary: Get all phones
-      description: Get all phones in the database
+      tags:
+        - User
+      operationId: userGET
+      security:
+        - BearerAuth: []
       responses:
         "200":
-          description: OK
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+                x-content-type: application/json
+      x-swagger-router-controller: User
+    post:
+      tags:
+        - User
+      operationId: userPOST
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                company_id:
+                  type: integer
+                  format: int64
+      responses:
+        "200":
+          description: User successfully created
+      x-swagger-router-controller: User
+  /user/{user_id}:
+    get:
+      tags:
+        - User
+      operationId: userUser_idGET
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: A user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      x-swagger-router-controller: User
+    put:
+      tags:
+        - User
+      operationId: userUser_idPUT
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                company_id:
+                  type: integer
+                  format: int64
+      responses:
+        "200":
+          description: User successfully updated
+      x-swagger-router-controller: User
+    delete:
+      tags:
+        - User
+      operationId: userUser_idDELETE
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: User successfully deleted
+      x-swagger-router-controller: User
+  /phone:
+    get:
+      tags:
+        - Phone
+      description: Retrieve all phones
+      operationId: getAllPhones
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Phone'
-
+        '500':
+          description: Internal server error
+      x-swagger-router-controller: Phone
     post:
-      summary: Create a phone
-      description: Create a phone in the database
+      tags:
+        - Phone
+      operationId: phonePOST
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PhoneInput'
-      responses:
-        "201":
-          description: Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Phone'
-        "409":
-          description: Phone already exists
-          content:
-            application/json:
-              example:
-                message: Phone already exists
-
-  /api/phones/{phone_id}:
-    get:
-      summary: Get phone by ID
-      description: Get phone by ID
-      parameters:
-        - in: path
-          name: phone_id
-          schema:
-            type: integer
-          required: true
-          description: ID of the phone
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  format: int64
+                  default: null
+                brand:
+                  type: string
+                model:
+                  type: string
+                emei:
+                  type: string
       responses:
         "200":
-          description: OK
+          description: Phone successfully created
+      x-swagger-router-controller: Phone
+  /phone/{phone_id}:
+    get:
+      tags:
+        - Phone
+      operationId: phonePhone_idGET
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: phone_id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: A phone
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Phone'
-        "404":
-          description: Phone not found
-          content:
-            application/json:
-              example:
-                message: Phone not found
-
+                $ref: "#/components/schemas/Phone"
+      x-swagger-router-controller: Phone
     put:
-      summary: Update phone by ID
-      description: Update phone by ID
+      tags:
+        - Phone
+      operationId: phonePhone_idPUT
+      security:
+        - BearerAuth: []
       parameters:
-        - in: path
-          name: phone_id
+        - name: phone_id
+          in: path
+          required: true
+          style: simple
+          explode: false
           schema:
             type: integer
-          required: true
-          description: ID of the phone
+            format: int64
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PhoneInput'
+              $ref: "#/components/schemas/Phone"
       responses:
         "200":
-          description: Phone updated successfully
-          content:
-            application/json:
-              example:
-                message: Phone updated successfully
-        "404":
-          description: Phone not found
-          content:
-            application/json:
-              example:
-                message: Phone not found
-
+          description: Phone successfully updated
+      x-swagger-router-controller: Phone
     delete:
-      summary: Delete phone by ID
-      description: Delete phone by ID
+      tags:
+        - Phone
+      operationId: phonePhone_idDELETE
+      security:
+        - BearerAuth: []
       parameters:
-        - in: path
-          name: phone_id
+        - name: phone_id
+          in: path
+          required: true
+          style: simple
+          explode: false
           schema:
             type: integer
-          required: true
-          description: ID of the phone
+            format: int64
       responses:
         "200":
-          description: Phone deleted successfully
-          content:
-            application/json:
-              example:
-                message: Phone deleted successfully
-        "404":
-          description: Phone not found
-          content:
-            application/json:
-              example:
-                message: Phone not found
-
-  /api/phones/emei/{emei}:
+          description: Phone successfully deleted
+      x-swagger-router-controller: Phone
+  /phone/emei/{emei}:
     get:
-      summary: Get phone by EMEI
-      description: Get phone by EMEI
+      tags:
+        - Phone
+      description: Retrieve a phone by its EMEI
+      operationId: getPhoneByEmei
+      security:
+        - BearerAuth: []
       parameters:
-        - in: path
-          name: emei
+        - name: emei
+          in: path
+          required: true
+          description: EMEI of the phone to retrieve
           schema:
             type: string
-          required: true
-          description: EMEI of the phone
       responses:
-        "200":
-          description: OK
+        '200':
+          description: Successful response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Phone'
-        "404":
+        '404':
           description: Phone not found
+        '500':
+          description: Internal server error
+      x-swagger-router-controller: Phone
+  /company:
+    get:
+      tags:
+        - Company
+      description: Retrieve all companies
+      operationId: getAllCompanies
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful response
           content:
             application/json:
-              example:
-                message: Phone not found
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        '500':
+          description: Internal server error
+      x-swagger-router-controller: Company
+    post:
+      tags:
+        - Company
+      operationId: companyPOST
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: Company successfully created
+      x-swagger-router-controller: Company
+
+  /company/{company_id}:
+    get:
+      tags:
+        - Company
+      operationId: getCompanyById
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: company_id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: A company
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Company"
+      x-swagger-router-controller: Company
+    put:
+      tags:
+        - Company
+      operationId: companyPUT
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: company_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: Company successfully updated
+      x-swagger-router-controller: Company
+    delete:
+      tags:
+        - Company
+      operationId: companyCompany_idDELETE
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: company_id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Company successfully deleted
+      x-swagger-router-controller: Company
+
+  /accessories:
+    get:
+      tags:
+        - Accessories
+      description: Retrieve all accessories
+      operationId: getAllAccessories
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Accessories'
+        '500':
+          description: Internal server error
+      x-swagger-router-controller: Accessories
+  /accessories/{phoneId}:
+    get:
+      tags:
+        - Accessories
+      description: Retrieve accessories by phone ID
+      operationId: getAccessoriesByPhoneId
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: phoneId
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accessories'
+        '404':
+          description: Accessories not found
+        '500':
+          description: Internal server error
+      x-swagger-router-controller: Accessories
+    put:
+      tags:
+        - Accessories
+      description: Update accessories by phone ID
+      operationId: updateAccessoriesByPhoneId
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: phoneId
+          in: path
+          required: true
+          description: ID of the phone whose accessories to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                screen_protector:
+                  type: boolean
+                case_protector:
+                  type: boolean
+      responses:
+        '200':
+          description: Accessories successfully updated
+        '404':
+          description: Phone not found
+        '500':
+          description: Internal server error
+      x-swagger-router-controller: Accessories
+
 
 components:
+  securitySchemes:
+    BearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        type:
+          type: string
+        company_id:
+          type: integer
+          format: int64
+      example:
+        user_id: 1
+        name: John Doe
+        email: john.doe@example.com
+        password: password
+        company_id: 1
     Phone:
       type: object
       properties:
-        id:
+        phone_id:
           type: integer
+          format: int64
         brand:
           type: string
         model:
           type: string
         emei:
           type: string
-
-    PhoneInput:
+        user_id: 
+          type: integer
+          format: int64
+      example:
+        brand: Samsung
+        model: Galaxy S20
+        emei: 123456789012345
+        user_id: 1
+    Company:
       type: object
       properties:
-        brand:
+        company_id:
+          type: integer
+          format: int64
+        name:
           type: string
-        model:
-          type: string
-        emei:
-          type: string
-      required:
-        - brand
-        - model
-        - emei
+      example:
+        company_id: 1
+        name: Example Company
+    Accessories:
+      type: object
+      properties:
+        phone_id:
+          type: integer
+          format: int64
+        screen_protector:
+          type: boolean
+        case_protector:
+          type: boolean

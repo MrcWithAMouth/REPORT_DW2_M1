@@ -1,9 +1,10 @@
 const phoneService = require('../services/PhoneService');
+const accessoriesService = require('../services/AccessoriesService');
 
 const phoneController = {
     async list(req, res, next) {
         try {
-            const phones = await phoneService.listPhones(); // Correção no nome da função
+            const phones = await phoneService.listPhones(); 
             res.json(phones);
         } catch (error) {
             console.error('Error fetching all phones', error);
@@ -14,7 +15,7 @@ const phoneController = {
     async getById(req, res, next) {
         const { id } = req.params;
         try {
-            const phone = await phoneService.getPhoneById(id); // Correção no nome da função
+            const phone = await phoneService.getPhoneById(id); 
             res.json(phone);
         } catch (error) {
             console.error('Error fetching phone by ID:', error);
@@ -23,9 +24,14 @@ const phoneController = {
     },
 
     async create(req, res, next) {
-        const { brand, model, emei } = req.body;
+        const { brand, model, emei, user_id } = req.body; 
         try {
-            const newPhoneId = await phoneService.createPhone(brand, model, emei);
+            
+            const newPhoneId = await phoneService.createPhone(brand, model, emei, user_id); 
+            
+            
+            await accessoriesService.createAccessoriesForPhone(newPhoneId);
+
             res.json({ id: newPhoneId, message: 'Phone created successfully' });
         } catch (error) {
             console.error('Error creating phone:', error);
@@ -35,9 +41,9 @@ const phoneController = {
 
     async update(req, res, next) {
         const { id } = req.params;
-        const { brand, model, emei } = req.body;
+        const { brand, model, emei, user_id } = req.body;
         try {
-            await phoneService.updatePhone(id, brand, model, emei);
+            await phoneService.updatePhone(id, brand, model, emei, user_id);
             res.json({ message: 'Phone updated successfully' });
         } catch (error) {
             console.error('Error updating phone:', error);

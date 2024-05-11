@@ -1,0 +1,624 @@
+{
+	"info": {
+		"_postman_id": "81989ea7-5cdd-4966-9bea-068a7bb81f69",
+		"name": "Smartphones-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29354603"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GET USERS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/user"
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER BY ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2ODQwLCJleHAiOjE3MTU0NzA0NDB9.ZeF_za3CQjZw9WcoTsvBYSzzwV9LYNOoYRmAnes8Tts"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2ODQwLCJleHAiOjE3MTU0NzA0NDB9.ZeF_za3CQjZw9WcoTsvBYSzzwV9LYNOoYRmAnes8Tts"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\",\r\n  \"company_id\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/user"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE USER BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2ODQwLCJleHAiOjE3MTU0NzA0NDB9.ZeF_za3CQjZw9WcoTsvBYSzzwV9LYNOoYRmAnes8Tts"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\",\r\n  \"company_id\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2ODQwLCJleHAiOjE3MTU0NzA0NDB9.ZeF_za3CQjZw9WcoTsvBYSzzwV9LYNOoYRmAnes8Tts"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/user/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "GET COMPANIES",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/company"
+					},
+					"response": []
+				},
+				{
+					"name": "GET COMPANIES BY ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/company"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD COMPANY",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2ODQwLCJleHAiOjE3MTU0NzA0NDB9.ZeF_za3CQjZw9WcoTsvBYSzzwV9LYNOoYRmAnes8Tts"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/company"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE COMPANY BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2ODQwLCJleHAiOjE3MTU0NzA0NDB9.ZeF_za3CQjZw9WcoTsvBYSzzwV9LYNOoYRmAnes8Tts"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/company/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE COMPANY BY ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2ODQwLCJleHAiOjE3MTU0NzA0NDB9.ZeF_za3CQjZw9WcoTsvBYSzzwV9LYNOoYRmAnes8Tts"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/company/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Phone",
+			"item": [
+				{
+					"name": "GET PHONES",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/phone"
+					},
+					"response": []
+				},
+				{
+					"name": "GET PHONES BY ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/phone/1"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD PHONE",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user_id\": null,\r\n  \"brand\": \"string\",\r\n  \"model\": \"string\",\r\n  \"emei\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/phone/"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PHONE BY ID",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"brand\": \"Samsung\",\r\n  \"model\": \"Galaxy S20\",\r\n  \"emei\": 123456789012345,\r\n  \"user_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/phone/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE PHONE BY ID",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/phone/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accessories",
+			"item": [
+				{
+					"name": "GET ACCESSORIES",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/accessories"
+					},
+					"response": []
+				},
+				{
+					"name": "GET ACCESSORIES BY ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/accessories/1"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD ACCESSORIES",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": {
+								"secret": "",
+								"algorithm": "HS256",
+								"isSecretBase64Encoded": false,
+								"payload": "{}",
+								"addTokenTo": "header",
+								"headerPrefix": "Bearer",
+								"queryParamKey": "token",
+								"header": "{}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NDY2NjA4LCJleHAiOjE3MTU0NzAyMDh9.9lbywIlaN-bLvpADEdz9kFAnHFvmuxkk4pFQinZoQj0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"screen_protector\": true,\r\n  \"case_protector\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/accessories/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/login"
+			},
+			"response": []
+		}
+	]
+}
