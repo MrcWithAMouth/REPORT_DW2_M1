@@ -41,6 +41,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiJson));
 
 const authService = require('./services/AuthService');
 
+
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -51,12 +52,14 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/user', userController.list);
+// Public routes
+app.get('/users', userController.list);
 app.get('/user/:id', userController.getById);
 
 app.use(authenticateJWT);
 
-// Rotas protegidas
+// Protected routes
+app.use("/", require("./routes/getUserRouter"));
 app.use("/", require("./routes/PhoneRouter"));
 app.use("/", require("./routes/UserRouter"));
 app.use("/", require("./routes/CompanyRouter"));

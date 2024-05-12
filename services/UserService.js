@@ -37,7 +37,7 @@ async function getUserById(id) {
 async function createUser(name, email, password, company_id) {
     try {
         const newUser = await User.create({ name, email, password, company_id });
-        return newUser.id;
+        return newUser.get('id');
     } catch (error) {
         if (error.message === 'Email already in use!') {
             throw new Error('Error creating a new user: Email already in use!');
@@ -107,4 +107,12 @@ async function getUserByEmailAndPassword(email, password) {
     }
 }
 
-module.exports = { listUsers, getUserById, createUser, updateUser, deleteUser, getUserPhones, getUserByEmailAndPassword };
+async function getUser(userId) {
+    // Fetch the user with the specified ID from the database
+    // This is just a placeholder. Replace it with your actual database query.
+    const user = await database.query('SELECT * FROM users WHERE id = ?', [userId]);
+  
+    return user;
+  }
+
+module.exports = { listUsers, getUserById, createUser, updateUser, deleteUser, getUserPhones, getUserByEmailAndPassword, getUser };
