@@ -108,10 +108,8 @@ async function getUserByEmailAndPassword(email, password) {
 }
 
 async function getUser(userId) {
-    // Fetch the user with the specified ID from the database
-    // This is just a placeholder. Replace it with your actual database query.
+
     const user = await database.query('SELECT * FROM users WHERE id = ?', [userId]);
-  
     return user;
   }
 

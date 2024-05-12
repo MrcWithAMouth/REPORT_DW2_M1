@@ -114,8 +114,6 @@ INSERT INTO Accessories (phone_id, screen_protector, case_protector) VALUES
 (29, FALSE, TRUE), 
 (30, FALSE, FALSE); 
 
-
-
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 ALTER USER 'root'@'%' IDENTIFIED WITH 'mysql_native_password' BY '12345678';
 FLUSH PRIVILEGES;
