@@ -7,6 +7,8 @@ const yaml = require("yaml");
 const sequelize = require("./config/database");
 const associations = require("./models/associations");
 const authenticateJWT = require('./middlewares/authenticateJWT');
+const userController = require('./Controllers/UserController');
+
 
 
 const app = express();
@@ -48,6 +50,9 @@ app.post('/login', async (req, res) => {
         res.status(401).json({ message: 'Authentication failed' });
     }
 });
+
+app.get('/user', userController.list);
+app.get('/user/:id', userController.getById);
 
 app.use(authenticateJWT);
 

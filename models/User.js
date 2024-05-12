@@ -14,8 +14,15 @@ const User = sequelize.define('User', {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        validate: {
+            isEmail: true,
+            async isUnique(email) {
+                const user = await User.findOne({ where: { email } });
+                if (user) {
+                    throw new Error('Email already in use!');
+                }
+            },
+        },
     },
     password: {
         type: DataTypes.STRING,

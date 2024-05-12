@@ -61,8 +61,6 @@ paths:
       tags:
         - User
       operationId: userGET
-      security:
-        - BearerAuth: []
       responses:
         "200":
           description: A list of users
@@ -105,8 +103,6 @@ paths:
       tags:
         - User
       operationId: userUser_idGET
-      security:
-        - BearerAuth: []
       parameters:
         - name: user_id
           in: path

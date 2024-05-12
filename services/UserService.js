@@ -3,7 +3,9 @@ const Phone = require('../models/Phone');
 
 async function listUsers() {
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+            attributes: { exclude: ['password'] }
+        });                                                                                                                                                                                              
         return users;
     } catch (error) {
         throw new Error('Error listing users: ' + error.message);
@@ -13,6 +15,7 @@ async function listUsers() {
 async function getUserById(id) {
     try {
         const user = await User.findByPk(id, {
+            attributes: { exclude: ['password'] },
             include: [
                 {
                     model: Phone,
@@ -36,6 +39,9 @@ async function createUser(name, email, password, company_id) {
         const newUser = await User.create({ name, email, password, company_id });
         return newUser.id;
     } catch (error) {
+        if (error.message === 'Email already in use!') {
+            throw new Error('Error creating a new user: Email already in use!');
+        }
         throw new Error('Error creating a new user: ' + error.message);
     }
 }
@@ -46,8 +52,17 @@ async function updateUser(id, name, email, password, company_id) {
         if (!user) {
             throw new Error('User not found');
         }
+        if (email !== user.email) {
+            const existingUser = await User.findOne({ where: { email } });
+            if (existingUser) {
+                throw new Error('Email already in use!');
+            }
+        }
         await user.update({ name, email, password, company_id });
     } catch (error) {
+        if (error.message === 'Email already in use!') {
+            throw new Error('Error updating the user: Email already in use!');
+        }
         throw new Error('Error updating the user: ' + error.message);
     }
 }

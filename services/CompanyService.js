@@ -18,7 +18,7 @@ async function getCompanyById(id) {
                     model: User,
                     as: 'users', 
                     where: { company_id: id },
-                    attributes: { exclude: ['company_id', 'password'] }  // Exclude the company_id and password attributes
+                    attributes: { exclude: ['company_id', 'password'] } 
                 }
             ]
         });
