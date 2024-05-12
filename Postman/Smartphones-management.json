@@ -619,6 +619,33 @@
 				"url": "http://localhost:3000/login"
 			},
 			"response": []
+		},
+		{
+			"name": "GET ME",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE1NTEzMjc1LCJleHAiOjE3MTU1MTY4NzV9.C_XaFB_f-PWH4Xgp--9ji5etCmqlhOxxbiFBd5PqtUM"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"joao.silva@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/me"
+			},
+			"response": []
 		}
 	]
 }
