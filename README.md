@@ -7,7 +7,7 @@ O presente trabalho foi desenvolvido pelo grupo G23 constituído pelos seguintes
 * [André Gomes](https://github.com/aasfgomes)
 * [Gonçalo Sousa](https://github.com/MrcWithAMouth)
 
-## Smartphones Management
+## Smart-Management
 
 O objetivo do projeto é desenvolver uma aplicação para gerir smartphones utilizando Node.js e MySQL. Esta aplicação permitirá registar, atualizar e remover informações sobre smartphones, e também oferecer autenticação de utilizadores através de tokens JWT. A documentação da API será feita com o Swagger UI, proporcionando uma interface interativa para testar e compreender os endpoints da aplicação. A escolha destas tecnologias visa criar uma solução robusta e escalável para gerir informações de dispositivos móveis de forma eficiente e segura.
 
