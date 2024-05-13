@@ -2,14 +2,14 @@
 
 O presente repositório serve para mostrar o projeto designado M1, desenvolvido para a disciplina de Desenvolvimento WEB 2 do 2º ano da Licenciatura de Informática lecionada na Universidade da Maia.
 
-O presente trabalho foi desenvolvido pelo grupo G25 constituído pelos seguintes elementos:
+O presente trabalho foi desenvolvido pelo grupo G23 constituído pelos seguintes elementos:
 
 * [André Gomes](https://github.com/aasfgomes)
 * [Gonçalo Sousa](https://github.com/MrcWithAMouth)
 
-## TODO-List
+## Smartphones Management
 
-O tema escolhido foi a criação de uma API para uma todo-list que é constituída por 3 recursos, user, task e category. O Objetivo passar por criar um user, uma categoria e registar uma tarefa em um determinado user em que a tarefa registada pertence a uma determinada categoria.
+O objetivo do projeto é desenvolver uma aplicação para gerir smartphones utilizando Node.js e MySQL. Esta aplicação permitirá registar, atualizar e remover informações sobre smartphones, e também oferecer autenticação de utilizadores através de tokens JWT. A documentação da API será feita com o Swagger UI, proporcionando uma interface interativa para testar e compreender os endpoints da aplicação. A escolha destas tecnologias visa criar uma solução robusta e escalável para gerir informações de dispositivos móveis de forma eficiente e segura.
 
 ## Organização do repositório
 
@@ -39,8 +39,14 @@ O tema escolhido foi a criação de uma API para uma todo-list que é constituí
 
 ### Frameworks e Bibliotecas
 
-* nodeJS
-* React
+* Express.js
+* Swagger UI Express
+* dotenv
+* sequelize
+* jsonwebtoken
+* body-parser
+* yamljs
+* js-yaml
 
 ### Apresentação do projeto
 
